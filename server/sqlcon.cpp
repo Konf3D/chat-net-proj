@@ -7,16 +7,7 @@ constexpr auto dbLogFileName = "sql.log";
 
 SQLcon::SQLcon()
 {
-    sqlite3* db;
-    char* err_msg = nullptr;
 
-    const char* messages_table_sql = "CREATE TABLE messages (id INTEGER PRIMARY KEY, user_id INTEGER, content TEXT)";
-    int rc = sqlite3_exec(db, messages_table_sql, nullptr, nullptr, &err_msg);
-    if (rc != SQLITE_OK) {
-        std::cerr << "Error creating messages table: " << err_msg << std::endl;
-        sqlite3_free(err_msg);
-        sqlite3_close(db);
-    }
 }
 
 SQLcon::~SQLcon()
