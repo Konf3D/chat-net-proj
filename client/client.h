@@ -1,0 +1,20 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+#pragma once
+#include <grpc++/grpc++.h>
+#include <fstream>
+#include "../server/server.h"
+constexpr auto dbMessagesFileName = "usermessages.db";
+class ChatClient
+{
+public:
+	ChatClient(std::shared_ptr<grpc::Channel> channel);
+	bool Register(const std::string& login, const std::string& username, const std::string& password);
+	bool Authenticate(const std::string& login, const std::string& password);
+	bool Message(const std::string& sender, const std::string& receiver, const std::string& content);
+	void RetrieveMessageStream(const std::string& username);
+private:
+	std::unique_ptr<chat::ChatService::Stub> stub_;
+	std::string token_;
+};

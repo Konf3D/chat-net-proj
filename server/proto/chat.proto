@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package chat;
+
+message User {
+  int64 id = 1;
+  string username = 2;
+  string password = 3;
+  string login = 4;
+  string email = 5;
+}
+
+message Message {
+  string sender = 1;
+  string receiver = 2;
+  string content = 3;
+}
+
+service ChatService {
+  rpc AuthenticateUser (User) returns (ServerResponse);
+  rpc RegisterUser (User) returns (ServerResponse);
+  rpc SendMessage (Message) returns (SendMessageResponse);
+  rpc GetMessageStream (ServerResponse) returns (stream Message);
+}
+
+message ServerResponse {
+  string message = 1;
+}
+message SendMessageResponse {
+  string message = 3;
+}
