@@ -48,16 +48,16 @@ namespace chat {
 class Message;
 struct MessageDefaultTypeInternal;
 extern MessageDefaultTypeInternal _Message_default_instance_;
-class Response;
-struct ResponseDefaultTypeInternal;
-extern ResponseDefaultTypeInternal _Response_default_instance_;
+class Token;
+struct TokenDefaultTypeInternal;
+extern TokenDefaultTypeInternal _Token_default_instance_;
 class User;
 struct UserDefaultTypeInternal;
 extern UserDefaultTypeInternal _User_default_instance_;
 }  // namespace chat
 PROTOBUF_NAMESPACE_OPEN
 template<> ::chat::Message* Arena::CreateMaybeMessage<::chat::Message>(Arena*);
-template<> ::chat::Response* Arena::CreateMaybeMessage<::chat::Response>(Arena*);
+template<> ::chat::Token* Arena::CreateMaybeMessage<::chat::Token>(Arena*);
 template<> ::chat::User* Arena::CreateMaybeMessage<::chat::User>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace chat {
@@ -434,24 +434,24 @@ class Message final :
 };
 // -------------------------------------------------------------------
 
-class Response final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chat.Response) */ {
+class Token final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chat.Token) */ {
  public:
-  inline Response() : Response(nullptr) {}
-  ~Response() override;
-  explicit PROTOBUF_CONSTEXPR Response(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Token() : Token(nullptr) {}
+  ~Token() override;
+  explicit PROTOBUF_CONSTEXPR Token(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Response(const Response& from);
-  Response(Response&& from) noexcept
-    : Response() {
+  Token(const Token& from);
+  Token(Token&& from) noexcept
+    : Token() {
     *this = ::std::move(from);
   }
 
-  inline Response& operator=(const Response& from) {
+  inline Token& operator=(const Token& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Response& operator=(Response&& from) noexcept {
+  inline Token& operator=(Token&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -474,20 +474,20 @@ class Response final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Response& default_instance() {
+  static const Token& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Response* internal_default_instance() {
-    return reinterpret_cast<const Response*>(
-               &_Response_default_instance_);
+  static inline const Token* internal_default_instance() {
+    return reinterpret_cast<const Token*>(
+               &_Token_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(Response& a, Response& b) {
+  friend void swap(Token& a, Token& b) {
     a.Swap(&b);
   }
-  inline void Swap(Response* other) {
+  inline void Swap(Token* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -500,7 +500,7 @@ class Response final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Response* other) {
+  void UnsafeArenaSwap(Token* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -508,14 +508,14 @@ class Response final :
 
   // implements Message ----------------------------------------------
 
-  Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Response>(arena);
+  Token* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Token>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Response& from);
+  void CopyFrom(const Token& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const Response& from) {
-    Response::MergeImpl(*this, from);
+  void MergeFrom( const Token& from) {
+    Token::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -533,15 +533,15 @@ class Response final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Response* other);
+  void InternalSwap(Token* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "chat.Response";
+    return "chat.Token";
   }
   protected:
-  explicit Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Token(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -571,7 +571,7 @@ class Response final :
   std::string* _internal_mutable_message();
   public:
 
-  // @@protoc_insertion_point(class_scope:chat.Response)
+  // @@protoc_insertion_point(class_scope:chat.Token)
  private:
   class _Internal;
 
@@ -902,44 +902,44 @@ inline void Message::set_allocated_content(std::string* content) {
 
 // -------------------------------------------------------------------
 
-// Response
+// Token
 
 // string message = 1;
-inline void Response::clear_message() {
+inline void Token::clear_message() {
   _impl_.message_.ClearToEmpty();
 }
-inline const std::string& Response::message() const {
-  // @@protoc_insertion_point(field_get:chat.Response.message)
+inline const std::string& Token::message() const {
+  // @@protoc_insertion_point(field_get:chat.Token.message)
   return _internal_message();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Response::set_message(ArgT0&& arg0, ArgT... args) {
+void Token::set_message(ArgT0&& arg0, ArgT... args) {
  
  _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chat.Response.message)
+  // @@protoc_insertion_point(field_set:chat.Token.message)
 }
-inline std::string* Response::mutable_message() {
+inline std::string* Token::mutable_message() {
   std::string* _s = _internal_mutable_message();
-  // @@protoc_insertion_point(field_mutable:chat.Response.message)
+  // @@protoc_insertion_point(field_mutable:chat.Token.message)
   return _s;
 }
-inline const std::string& Response::_internal_message() const {
+inline const std::string& Token::_internal_message() const {
   return _impl_.message_.Get();
 }
-inline void Response::_internal_set_message(const std::string& value) {
+inline void Token::_internal_set_message(const std::string& value) {
   
   _impl_.message_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Response::_internal_mutable_message() {
+inline std::string* Token::_internal_mutable_message() {
   
   return _impl_.message_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Response::release_message() {
-  // @@protoc_insertion_point(field_release:chat.Response.message)
+inline std::string* Token::release_message() {
+  // @@protoc_insertion_point(field_release:chat.Token.message)
   return _impl_.message_.Release();
 }
-inline void Response::set_allocated_message(std::string* message) {
+inline void Token::set_allocated_message(std::string* message) {
   if (message != nullptr) {
     
   } else {
@@ -951,7 +951,7 @@ inline void Response::set_allocated_message(std::string* message) {
     _impl_.message_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chat.Response.message)
+  // @@protoc_insertion_point(field_set_allocated:chat.Token.message)
 }
 
 #ifdef __GNUC__

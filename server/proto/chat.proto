@@ -15,12 +15,12 @@ message Message {
 }
 
 service ChatService {
-  rpc AuthenticateUser (User) returns (Response);
-  rpc RegisterUser (User) returns (Response);
-  rpc SendMessage (Message) returns (Response);
-  rpc GetMessageStream (Response) returns (stream Message);
+  rpc AuthenticateUser (User) returns (Token);
+  rpc RegisterUser (User) returns (Token);
+  rpc SendMessage (Message) returns (Token);
+  rpc GetMessageStream (Token) returns (stream Message);
 }
 
-message Response {
+message Token {
   string message = 1;
 }
