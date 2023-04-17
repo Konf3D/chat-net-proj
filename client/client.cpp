@@ -3,7 +3,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 #include <filesystem>
 #include "client.h"
-#include "logger.h"
+#include "../server/logger.h"
 #include "../server/server.h"
 
 constexpr auto grpcErrorLogFile = "grpc-client.log";
