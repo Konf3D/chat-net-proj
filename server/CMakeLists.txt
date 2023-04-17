@@ -4,7 +4,7 @@ project(chat-net-srv)
 
 add_subdirectory(proto)
 
-add_executable(chat-net-server chat-net-serv.cpp server.cpp ./proto/chat.grpc.pb.cc ./proto/chat.pb.cc sqlcon.cpp)
+add_executable(chat-net-server chat-net-serv.cpp server.cpp server.h ./proto/chat.grpc.pb.cc ./proto/chat.grpc.pb.h ./proto/chat.pb.cc ./proto/chat.pb.h sqlcon.cpp sqlcon.h)
 
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
 target_link_libraries(chat-net-server PRIVATE unofficial::sqlite3::sqlite3)
