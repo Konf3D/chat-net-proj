@@ -10,37 +10,30 @@
 #include <utility>
 #include "proto/chat.pb.h"
 #include "proto/chat.grpc.pb.h"
+class SQLcon;
 
 struct Message
 {
     Message() = default;
     ~Message() = default;
     std::string content;
-    std::string sender;
-    std::string reciever;
+    int64_t sender;
+    int64_t reciever;
 };
 struct User
 {
     User() = default;
     ~User() = default;
-    std::string login;
     std::string username;
+    std::string name;
+    std::string surname;
+    std::string email;
     std::string password;
     std::string token;
-    std::string email;
 };
 class ChatServer : public chat::ChatService::Service
 {
-private:
-    std::vector<User> users_;
-    std::vector<Message> messages_;
-public:
-    ChatServer();
-    ~ChatServer() = default;
-    grpc::Status AuthenticateUser(grpc::ServerContext* context, const chat::User* request, chat::ServerResponse* response) override;
-    grpc::Status RegisterUser(grpc::ServerContext* context, const chat::User* request, chat::ServerResponse* response) override;
-    grpc::Status SendMessage(grpc::ServerContext* context, const chat::Message* request, chat::SendMessageResponse* response) override;
-    grpc::Status GetMessageStream(grpc::ServerContext* context, const chat::ServerResponse* request, grpc::ServerWriter< chat::Message>* writer) override;
+
 };
 
 inline std::string generateToken(std::size_t length = 64)

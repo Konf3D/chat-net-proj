@@ -48,20 +48,16 @@ namespace chat {
 class Message;
 struct MessageDefaultTypeInternal;
 extern MessageDefaultTypeInternal _Message_default_instance_;
-class SendMessageResponse;
-struct SendMessageResponseDefaultTypeInternal;
-extern SendMessageResponseDefaultTypeInternal _SendMessageResponse_default_instance_;
-class ServerResponse;
-struct ServerResponseDefaultTypeInternal;
-extern ServerResponseDefaultTypeInternal _ServerResponse_default_instance_;
+class Response;
+struct ResponseDefaultTypeInternal;
+extern ResponseDefaultTypeInternal _Response_default_instance_;
 class User;
 struct UserDefaultTypeInternal;
 extern UserDefaultTypeInternal _User_default_instance_;
 }  // namespace chat
 PROTOBUF_NAMESPACE_OPEN
 template<> ::chat::Message* Arena::CreateMaybeMessage<::chat::Message>(Arena*);
-template<> ::chat::SendMessageResponse* Arena::CreateMaybeMessage<::chat::SendMessageResponse>(Arena*);
-template<> ::chat::ServerResponse* Arena::CreateMaybeMessage<::chat::ServerResponse>(Arena*);
+template<> ::chat::Response* Arena::CreateMaybeMessage<::chat::Response>(Arena*);
 template<> ::chat::User* Arena::CreateMaybeMessage<::chat::User>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace chat {
@@ -189,13 +185,11 @@ class User final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUsernameFieldNumber = 2,
-    kPasswordFieldNumber = 3,
-    kLoginFieldNumber = 4,
-    kEmailFieldNumber = 5,
-    kIdFieldNumber = 1,
+    kUsernameFieldNumber = 1,
+    kPasswordFieldNumber = 2,
+    kEmailFieldNumber = 3,
   };
-  // string username = 2;
+  // string username = 1;
   void clear_username();
   const std::string& username() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -209,7 +203,7 @@ class User final :
   std::string* _internal_mutable_username();
   public:
 
-  // string password = 3;
+  // string password = 2;
   void clear_password();
   const std::string& password() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -223,21 +217,7 @@ class User final :
   std::string* _internal_mutable_password();
   public:
 
-  // string login = 4;
-  void clear_login();
-  const std::string& login() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_login(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_login();
-  PROTOBUF_NODISCARD std::string* release_login();
-  void set_allocated_login(std::string* login);
-  private:
-  const std::string& _internal_login() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_login(const std::string& value);
-  std::string* _internal_mutable_login();
-  public:
-
-  // string email = 5;
+  // string email = 3;
   void clear_email();
   const std::string& email() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -251,15 +231,6 @@ class User final :
   std::string* _internal_mutable_email();
   public:
 
-  // int64 id = 1;
-  void clear_id();
-  int64_t id() const;
-  void set_id(int64_t value);
-  private:
-  int64_t _internal_id() const;
-  void _internal_set_id(int64_t value);
-  public:
-
   // @@protoc_insertion_point(class_scope:chat.User)
  private:
   class _Internal;
@@ -270,9 +241,7 @@ class User final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr login_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
-    int64_t id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -465,24 +434,24 @@ class Message final :
 };
 // -------------------------------------------------------------------
 
-class ServerResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chat.ServerResponse) */ {
+class Response final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chat.Response) */ {
  public:
-  inline ServerResponse() : ServerResponse(nullptr) {}
-  ~ServerResponse() override;
-  explicit PROTOBUF_CONSTEXPR ServerResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Response() : Response(nullptr) {}
+  ~Response() override;
+  explicit PROTOBUF_CONSTEXPR Response(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  ServerResponse(const ServerResponse& from);
-  ServerResponse(ServerResponse&& from) noexcept
-    : ServerResponse() {
+  Response(const Response& from);
+  Response(Response&& from) noexcept
+    : Response() {
     *this = ::std::move(from);
   }
 
-  inline ServerResponse& operator=(const ServerResponse& from) {
+  inline Response& operator=(const Response& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ServerResponse& operator=(ServerResponse&& from) noexcept {
+  inline Response& operator=(Response&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -505,20 +474,20 @@ class ServerResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ServerResponse& default_instance() {
+  static const Response& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ServerResponse* internal_default_instance() {
-    return reinterpret_cast<const ServerResponse*>(
-               &_ServerResponse_default_instance_);
+  static inline const Response* internal_default_instance() {
+    return reinterpret_cast<const Response*>(
+               &_Response_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(ServerResponse& a, ServerResponse& b) {
+  friend void swap(Response& a, Response& b) {
     a.Swap(&b);
   }
-  inline void Swap(ServerResponse* other) {
+  inline void Swap(Response* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -531,7 +500,7 @@ class ServerResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ServerResponse* other) {
+  void UnsafeArenaSwap(Response* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -539,14 +508,14 @@ class ServerResponse final :
 
   // implements Message ----------------------------------------------
 
-  ServerResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ServerResponse>(arena);
+  Response* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Response>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const ServerResponse& from);
+  void CopyFrom(const Response& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const ServerResponse& from) {
-    ServerResponse::MergeImpl(*this, from);
+  void MergeFrom( const Response& from) {
+    Response::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -564,15 +533,15 @@ class ServerResponse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ServerResponse* other);
+  void InternalSwap(Response* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "chat.ServerResponse";
+    return "chat.Response";
   }
   protected:
-  explicit ServerResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -602,160 +571,7 @@ class ServerResponse final :
   std::string* _internal_mutable_message();
   public:
 
-  // @@protoc_insertion_point(class_scope:chat.ServerResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_chat_2eproto;
-};
-// -------------------------------------------------------------------
-
-class SendMessageResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:chat.SendMessageResponse) */ {
- public:
-  inline SendMessageResponse() : SendMessageResponse(nullptr) {}
-  ~SendMessageResponse() override;
-  explicit PROTOBUF_CONSTEXPR SendMessageResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  SendMessageResponse(const SendMessageResponse& from);
-  SendMessageResponse(SendMessageResponse&& from) noexcept
-    : SendMessageResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline SendMessageResponse& operator=(const SendMessageResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline SendMessageResponse& operator=(SendMessageResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const SendMessageResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const SendMessageResponse* internal_default_instance() {
-    return reinterpret_cast<const SendMessageResponse*>(
-               &_SendMessageResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    3;
-
-  friend void swap(SendMessageResponse& a, SendMessageResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(SendMessageResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(SendMessageResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  SendMessageResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SendMessageResponse>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SendMessageResponse& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SendMessageResponse& from) {
-    SendMessageResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(SendMessageResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "chat.SendMessageResponse";
-  }
-  protected:
-  explicit SendMessageResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kMessageFieldNumber = 3,
-  };
-  // string message = 3;
-  void clear_message();
-  const std::string& message() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_message(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_message();
-  PROTOBUF_NODISCARD std::string* release_message();
-  void set_allocated_message(std::string* message);
-  private:
-  const std::string& _internal_message() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
-  std::string* _internal_mutable_message();
-  public:
-
-  // @@protoc_insertion_point(class_scope:chat.SendMessageResponse)
+  // @@protoc_insertion_point(class_scope:chat.Response)
  private:
   class _Internal;
 
@@ -780,27 +596,7 @@ class SendMessageResponse final :
 #endif  // __GNUC__
 // User
 
-// int64 id = 1;
-inline void User::clear_id() {
-  _impl_.id_ = int64_t{0};
-}
-inline int64_t User::_internal_id() const {
-  return _impl_.id_;
-}
-inline int64_t User::id() const {
-  // @@protoc_insertion_point(field_get:chat.User.id)
-  return _internal_id();
-}
-inline void User::_internal_set_id(int64_t value) {
-  
-  _impl_.id_ = value;
-}
-inline void User::set_id(int64_t value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:chat.User.id)
-}
-
-// string username = 2;
+// string username = 1;
 inline void User::clear_username() {
   _impl_.username_.ClearToEmpty();
 }
@@ -850,7 +646,7 @@ inline void User::set_allocated_username(std::string* username) {
   // @@protoc_insertion_point(field_set_allocated:chat.User.username)
 }
 
-// string password = 3;
+// string password = 2;
 inline void User::clear_password() {
   _impl_.password_.ClearToEmpty();
 }
@@ -900,57 +696,7 @@ inline void User::set_allocated_password(std::string* password) {
   // @@protoc_insertion_point(field_set_allocated:chat.User.password)
 }
 
-// string login = 4;
-inline void User::clear_login() {
-  _impl_.login_.ClearToEmpty();
-}
-inline const std::string& User::login() const {
-  // @@protoc_insertion_point(field_get:chat.User.login)
-  return _internal_login();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void User::set_login(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.login_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chat.User.login)
-}
-inline std::string* User::mutable_login() {
-  std::string* _s = _internal_mutable_login();
-  // @@protoc_insertion_point(field_mutable:chat.User.login)
-  return _s;
-}
-inline const std::string& User::_internal_login() const {
-  return _impl_.login_.Get();
-}
-inline void User::_internal_set_login(const std::string& value) {
-  
-  _impl_.login_.Set(value, GetArenaForAllocation());
-}
-inline std::string* User::_internal_mutable_login() {
-  
-  return _impl_.login_.Mutable(GetArenaForAllocation());
-}
-inline std::string* User::release_login() {
-  // @@protoc_insertion_point(field_release:chat.User.login)
-  return _impl_.login_.Release();
-}
-inline void User::set_allocated_login(std::string* login) {
-  if (login != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.login_.SetAllocated(login, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.login_.IsDefault()) {
-    _impl_.login_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chat.User.login)
-}
-
-// string email = 5;
+// string email = 3;
 inline void User::clear_email() {
   _impl_.email_.ClearToEmpty();
 }
@@ -1156,44 +902,44 @@ inline void Message::set_allocated_content(std::string* content) {
 
 // -------------------------------------------------------------------
 
-// ServerResponse
+// Response
 
 // string message = 1;
-inline void ServerResponse::clear_message() {
+inline void Response::clear_message() {
   _impl_.message_.ClearToEmpty();
 }
-inline const std::string& ServerResponse::message() const {
-  // @@protoc_insertion_point(field_get:chat.ServerResponse.message)
+inline const std::string& Response::message() const {
+  // @@protoc_insertion_point(field_get:chat.Response.message)
   return _internal_message();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void ServerResponse::set_message(ArgT0&& arg0, ArgT... args) {
+void Response::set_message(ArgT0&& arg0, ArgT... args) {
  
  _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chat.ServerResponse.message)
+  // @@protoc_insertion_point(field_set:chat.Response.message)
 }
-inline std::string* ServerResponse::mutable_message() {
+inline std::string* Response::mutable_message() {
   std::string* _s = _internal_mutable_message();
-  // @@protoc_insertion_point(field_mutable:chat.ServerResponse.message)
+  // @@protoc_insertion_point(field_mutable:chat.Response.message)
   return _s;
 }
-inline const std::string& ServerResponse::_internal_message() const {
+inline const std::string& Response::_internal_message() const {
   return _impl_.message_.Get();
 }
-inline void ServerResponse::_internal_set_message(const std::string& value) {
+inline void Response::_internal_set_message(const std::string& value) {
   
   _impl_.message_.Set(value, GetArenaForAllocation());
 }
-inline std::string* ServerResponse::_internal_mutable_message() {
+inline std::string* Response::_internal_mutable_message() {
   
   return _impl_.message_.Mutable(GetArenaForAllocation());
 }
-inline std::string* ServerResponse::release_message() {
-  // @@protoc_insertion_point(field_release:chat.ServerResponse.message)
+inline std::string* Response::release_message() {
+  // @@protoc_insertion_point(field_release:chat.Response.message)
   return _impl_.message_.Release();
 }
-inline void ServerResponse::set_allocated_message(std::string* message) {
+inline void Response::set_allocated_message(std::string* message) {
   if (message != nullptr) {
     
   } else {
@@ -1205,68 +951,12 @@ inline void ServerResponse::set_allocated_message(std::string* message) {
     _impl_.message_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chat.ServerResponse.message)
-}
-
-// -------------------------------------------------------------------
-
-// SendMessageResponse
-
-// string message = 3;
-inline void SendMessageResponse::clear_message() {
-  _impl_.message_.ClearToEmpty();
-}
-inline const std::string& SendMessageResponse::message() const {
-  // @@protoc_insertion_point(field_get:chat.SendMessageResponse.message)
-  return _internal_message();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SendMessageResponse::set_message(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:chat.SendMessageResponse.message)
-}
-inline std::string* SendMessageResponse::mutable_message() {
-  std::string* _s = _internal_mutable_message();
-  // @@protoc_insertion_point(field_mutable:chat.SendMessageResponse.message)
-  return _s;
-}
-inline const std::string& SendMessageResponse::_internal_message() const {
-  return _impl_.message_.Get();
-}
-inline void SendMessageResponse::_internal_set_message(const std::string& value) {
-  
-  _impl_.message_.Set(value, GetArenaForAllocation());
-}
-inline std::string* SendMessageResponse::_internal_mutable_message() {
-  
-  return _impl_.message_.Mutable(GetArenaForAllocation());
-}
-inline std::string* SendMessageResponse::release_message() {
-  // @@protoc_insertion_point(field_release:chat.SendMessageResponse.message)
-  return _impl_.message_.Release();
-}
-inline void SendMessageResponse::set_allocated_message(std::string* message) {
-  if (message != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.message_.IsDefault()) {
-    _impl_.message_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:chat.SendMessageResponse.message)
+  // @@protoc_insertion_point(field_set_allocated:chat.Response.message)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

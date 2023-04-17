@@ -3,11 +3,9 @@ syntax = "proto3";
 package chat;
 
 message User {
-  int64 id = 1;
-  string username = 2;
-  string password = 3;
-  string login = 4;
-  string email = 5;
+  string username = 1;
+  string password = 2;
+  string email = 3;
 }
 
 message Message {
@@ -17,15 +15,12 @@ message Message {
 }
 
 service ChatService {
-  rpc AuthenticateUser (User) returns (ServerResponse);
-  rpc RegisterUser (User) returns (ServerResponse);
-  rpc SendMessage (Message) returns (SendMessageResponse);
-  rpc GetMessageStream (ServerResponse) returns (stream Message);
+  rpc AuthenticateUser (User) returns (Response);
+  rpc RegisterUser (User) returns (Response);
+  rpc SendMessage (Message) returns (Response);
+  rpc GetMessageStream (Response) returns (stream Message);
 }
 
-message ServerResponse {
+message Response {
   string message = 1;
-}
-message SendMessageResponse {
-  string message = 3;
 }

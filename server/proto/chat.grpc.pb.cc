@@ -41,88 +41,88 @@ ChatService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channe
   , rpcmethod_GetMessageStream_(ChatService_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
   {}
 
-::grpc::Status ChatService::Stub::AuthenticateUser(::grpc::ClientContext* context, const ::chat::User& request, ::chat::ServerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::chat::User, ::chat::ServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_AuthenticateUser_, context, request, response);
+::grpc::Status ChatService::Stub::AuthenticateUser(::grpc::ClientContext* context, const ::chat::User& request, ::chat::Response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::chat::User, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_AuthenticateUser_, context, request, response);
 }
 
-void ChatService::Stub::async::AuthenticateUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::ServerResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::chat::User, ::chat::ServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AuthenticateUser_, context, request, response, std::move(f));
+void ChatService::Stub::async::AuthenticateUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::Response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::chat::User, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AuthenticateUser_, context, request, response, std::move(f));
 }
 
-void ChatService::Stub::async::AuthenticateUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::ServerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+void ChatService::Stub::async::AuthenticateUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::Response* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AuthenticateUser_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::chat::ServerResponse>* ChatService::Stub::PrepareAsyncAuthenticateUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::chat::ServerResponse, ::chat::User, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_AuthenticateUser_, context, request);
+::grpc::ClientAsyncResponseReader< ::chat::Response>* ChatService::Stub::PrepareAsyncAuthenticateUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::chat::Response, ::chat::User, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_AuthenticateUser_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::chat::ServerResponse>* ChatService::Stub::AsyncAuthenticateUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::chat::Response>* ChatService::Stub::AsyncAuthenticateUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncAuthenticateUserRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status ChatService::Stub::RegisterUser(::grpc::ClientContext* context, const ::chat::User& request, ::chat::ServerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::chat::User, ::chat::ServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RegisterUser_, context, request, response);
+::grpc::Status ChatService::Stub::RegisterUser(::grpc::ClientContext* context, const ::chat::User& request, ::chat::Response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::chat::User, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RegisterUser_, context, request, response);
 }
 
-void ChatService::Stub::async::RegisterUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::ServerResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::chat::User, ::chat::ServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RegisterUser_, context, request, response, std::move(f));
+void ChatService::Stub::async::RegisterUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::Response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::chat::User, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RegisterUser_, context, request, response, std::move(f));
 }
 
-void ChatService::Stub::async::RegisterUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::ServerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+void ChatService::Stub::async::RegisterUser(::grpc::ClientContext* context, const ::chat::User* request, ::chat::Response* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RegisterUser_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::chat::ServerResponse>* ChatService::Stub::PrepareAsyncRegisterUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::chat::ServerResponse, ::chat::User, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RegisterUser_, context, request);
+::grpc::ClientAsyncResponseReader< ::chat::Response>* ChatService::Stub::PrepareAsyncRegisterUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::chat::Response, ::chat::User, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RegisterUser_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::chat::ServerResponse>* ChatService::Stub::AsyncRegisterUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::chat::Response>* ChatService::Stub::AsyncRegisterUserRaw(::grpc::ClientContext* context, const ::chat::User& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncRegisterUserRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status ChatService::Stub::SendMessage(::grpc::ClientContext* context, const ::chat::Message& request, ::chat::SendMessageResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::chat::Message, ::chat::SendMessageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SendMessage_, context, request, response);
+::grpc::Status ChatService::Stub::SendMessage(::grpc::ClientContext* context, const ::chat::Message& request, ::chat::Response* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::chat::Message, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SendMessage_, context, request, response);
 }
 
-void ChatService::Stub::async::SendMessage(::grpc::ClientContext* context, const ::chat::Message* request, ::chat::SendMessageResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::chat::Message, ::chat::SendMessageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendMessage_, context, request, response, std::move(f));
+void ChatService::Stub::async::SendMessage(::grpc::ClientContext* context, const ::chat::Message* request, ::chat::Response* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::chat::Message, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendMessage_, context, request, response, std::move(f));
 }
 
-void ChatService::Stub::async::SendMessage(::grpc::ClientContext* context, const ::chat::Message* request, ::chat::SendMessageResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+void ChatService::Stub::async::SendMessage(::grpc::ClientContext* context, const ::chat::Message* request, ::chat::Response* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendMessage_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::chat::SendMessageResponse>* ChatService::Stub::PrepareAsyncSendMessageRaw(::grpc::ClientContext* context, const ::chat::Message& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::chat::SendMessageResponse, ::chat::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SendMessage_, context, request);
+::grpc::ClientAsyncResponseReader< ::chat::Response>* ChatService::Stub::PrepareAsyncSendMessageRaw(::grpc::ClientContext* context, const ::chat::Message& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::chat::Response, ::chat::Message, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SendMessage_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::chat::SendMessageResponse>* ChatService::Stub::AsyncSendMessageRaw(::grpc::ClientContext* context, const ::chat::Message& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::chat::Response>* ChatService::Stub::AsyncSendMessageRaw(::grpc::ClientContext* context, const ::chat::Message& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncSendMessageRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::ClientReader< ::chat::Message>* ChatService::Stub::GetMessageStreamRaw(::grpc::ClientContext* context, const ::chat::ServerResponse& request) {
+::grpc::ClientReader< ::chat::Message>* ChatService::Stub::GetMessageStreamRaw(::grpc::ClientContext* context, const ::chat::Response& request) {
   return ::grpc::internal::ClientReaderFactory< ::chat::Message>::Create(channel_.get(), rpcmethod_GetMessageStream_, context, request);
 }
 
-void ChatService::Stub::async::GetMessageStream(::grpc::ClientContext* context, const ::chat::ServerResponse* request, ::grpc::ClientReadReactor< ::chat::Message>* reactor) {
+void ChatService::Stub::async::GetMessageStream(::grpc::ClientContext* context, const ::chat::Response* request, ::grpc::ClientReadReactor< ::chat::Message>* reactor) {
   ::grpc::internal::ClientCallbackReaderFactory< ::chat::Message>::Create(stub_->channel_.get(), stub_->rpcmethod_GetMessageStream_, context, request, reactor);
 }
 
-::grpc::ClientAsyncReader< ::chat::Message>* ChatService::Stub::AsyncGetMessageStreamRaw(::grpc::ClientContext* context, const ::chat::ServerResponse& request, ::grpc::CompletionQueue* cq, void* tag) {
+::grpc::ClientAsyncReader< ::chat::Message>* ChatService::Stub::AsyncGetMessageStreamRaw(::grpc::ClientContext* context, const ::chat::Response& request, ::grpc::CompletionQueue* cq, void* tag) {
   return ::grpc::internal::ClientAsyncReaderFactory< ::chat::Message>::Create(channel_.get(), cq, rpcmethod_GetMessageStream_, context, request, true, tag);
 }
 
-::grpc::ClientAsyncReader< ::chat::Message>* ChatService::Stub::PrepareAsyncGetMessageStreamRaw(::grpc::ClientContext* context, const ::chat::ServerResponse& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncReader< ::chat::Message>* ChatService::Stub::PrepareAsyncGetMessageStreamRaw(::grpc::ClientContext* context, const ::chat::Response& request, ::grpc::CompletionQueue* cq) {
   return ::grpc::internal::ClientAsyncReaderFactory< ::chat::Message>::Create(channel_.get(), cq, rpcmethod_GetMessageStream_, context, request, false, nullptr);
 }
 
@@ -130,40 +130,40 @@ ChatService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ChatService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ChatService::Service, ::chat::User, ::chat::ServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< ChatService::Service, ::chat::User, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ChatService::Service* service,
              ::grpc::ServerContext* ctx,
              const ::chat::User* req,
-             ::chat::ServerResponse* resp) {
+             ::chat::Response* resp) {
                return service->AuthenticateUser(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ChatService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ChatService::Service, ::chat::User, ::chat::ServerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< ChatService::Service, ::chat::User, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ChatService::Service* service,
              ::grpc::ServerContext* ctx,
              const ::chat::User* req,
-             ::chat::ServerResponse* resp) {
+             ::chat::Response* resp) {
                return service->RegisterUser(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ChatService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ChatService::Service, ::chat::Message, ::chat::SendMessageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< ChatService::Service, ::chat::Message, ::chat::Response, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ChatService::Service* service,
              ::grpc::ServerContext* ctx,
              const ::chat::Message* req,
-             ::chat::SendMessageResponse* resp) {
+             ::chat::Response* resp) {
                return service->SendMessage(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ChatService_method_names[3],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
-      new ::grpc::internal::ServerStreamingHandler< ChatService::Service, ::chat::ServerResponse, ::chat::Message>(
+      new ::grpc::internal::ServerStreamingHandler< ChatService::Service, ::chat::Response, ::chat::Message>(
           [](ChatService::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::chat::ServerResponse* req,
+             const ::chat::Response* req,
              ::grpc::ServerWriter<::chat::Message>* writer) {
                return service->GetMessageStream(ctx, req, writer);
              }, this)));
@@ -172,28 +172,28 @@ ChatService::Service::Service() {
 ChatService::Service::~Service() {
 }
 
-::grpc::Status ChatService::Service::AuthenticateUser(::grpc::ServerContext* context, const ::chat::User* request, ::chat::ServerResponse* response) {
+::grpc::Status ChatService::Service::AuthenticateUser(::grpc::ServerContext* context, const ::chat::User* request, ::chat::Response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status ChatService::Service::RegisterUser(::grpc::ServerContext* context, const ::chat::User* request, ::chat::ServerResponse* response) {
+::grpc::Status ChatService::Service::RegisterUser(::grpc::ServerContext* context, const ::chat::User* request, ::chat::Response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status ChatService::Service::SendMessage(::grpc::ServerContext* context, const ::chat::Message* request, ::chat::SendMessageResponse* response) {
+::grpc::Status ChatService::Service::SendMessage(::grpc::ServerContext* context, const ::chat::Message* request, ::chat::Response* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status ChatService::Service::GetMessageStream(::grpc::ServerContext* context, const ::chat::ServerResponse* request, ::grpc::ServerWriter< ::chat::Message>* writer) {
+::grpc::Status ChatService::Service::GetMessageStream(::grpc::ServerContext* context, const ::chat::Response* request, ::grpc::ServerWriter< ::chat::Message>* writer) {
   (void) context;
   (void) request;
   (void) writer;
