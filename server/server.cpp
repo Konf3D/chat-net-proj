@@ -42,10 +42,10 @@ ChatServer::ChatServer()
 		return grpc::Status(grpc::StatusCode::ALREADY_EXISTS, "Username taken");
 	const auto separator = request->email().find_first_of("@");
 	const auto user = sql.getUser(request->email().substr(0,separator-1),request->email().substr(separator));
+	if (separator != request->email().find_last_of("@") || separator == std::string::npos)
+		return grpc::Status(grpc::StatusCode::INVALID_ARGUMENT, "Email invalid");
 	if(user)
 		return grpc::Status(grpc::StatusCode::ALREADY_EXISTS, "email taken");
-	if (separator != request->email().find_last_of("@"))
-		return grpc::Status(grpc::StatusCode::INVALID_ARGUMENT, "Email invalid");
 
 	User usr = { request->username(),//username
 	std::string(),//name

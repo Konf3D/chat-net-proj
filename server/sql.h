@@ -54,6 +54,7 @@ public:
     bool insertUser(const User& record);
     bool insertMessage(const Message& record);
     bool insertToken(const std::string& token, int userID);
+    void deleteTokenByUserId(int userId);
     std::vector<Message> getMessages(int UserID);
     std::unique_ptr<User> getUser(int UserID);
     int getUser(const std::string& emailname, const std::string& emaildomain);

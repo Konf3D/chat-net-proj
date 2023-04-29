@@ -24,6 +24,7 @@ void ChatGUI::start()
     case '3':
         return;
     default:
+        std::cout << "\nInput not recognized... ";
         break;
     }
     start();
@@ -100,7 +101,7 @@ void ChatGUI::logged()
 {
     static char choice;
     static std::string message;
-    std::cout << "\nWhat to do:\n1.Write a message to everyone\n2.Write a message to a user\n3.Display public messages\n4.Display private messages\n5.Logout\n";
+    std::cout << "\nWhat to do:\n1.Write a message to a user\n2.Display messages\n3.Logout\n";
     std::cin >> choice;
     switch (choice)
     {
@@ -109,21 +110,14 @@ void ChatGUI::logged()
         std::cout << "Enter your message:";
         std::getline(std::cin, message);
         std::getline(std::cin, message);// because first time call gets empty string autimatically
-        client_.Message(user_, std::string(), message);
-        break;
-    }
-    case '2':
-    {
-        std::cout << "Enter your message:";
-        std::getline(std::cin, message);
-        std::getline(std::cin, message);// because first time call gets empty string autimatically
         std::cout << "Enter the reciever's username:";
         std::string reciever;
         std::getline(std::cin, reciever);
         client_.Message(user_, reciever, message);
+        client_.RetrieveMessageStream(user_);
         break;
     }
-    case '3':
+    case '2':
     {
         std::ifstream messagesDBFile(dbMessagesFileName,std::ios::beg);
         std::string readbuff[3];
@@ -139,31 +133,27 @@ void ChatGUI::logged()
             }
             if (readbuff[0] == user_)
             {
-                if (readbuff[1].empty() || readbuff[1] == "\n")
-                    std::cout << "You sent: " << readbuff[2] << '\n';
-                else
+                //if (readbuff[1].empty() || readbuff[1] == "\n")
+                //    std::cout << "You sent: " << readbuff[2] << '\n';
+                //else
                     std::cout << "You sent to user " << readbuff[1] << ":" << readbuff[2] << '\n';
             }
             else
             {
-                if (readbuff[1]==user_)
-                    std::cout << readbuff[0] <<" sent you: " << readbuff[2] << '\n';
-                else
+                //if (readbuff[1]==user_)
+                //    std::cout << readbuff[0] <<" sent you: " << readbuff[2] << '\n';
+                //else
                     std::cout << "You sent user " << readbuff[1] << ":" << readbuff[2] << '\n';
             }
         }
+        client_.RetrieveMessageStream(user_);
     }
     break;
-    case '4':
-    {
-        std::cout << "TODO\n";
-    }
-    break;
-    case '5':
+    case '3':
         return;
     default:
+        std::cout << "\nInput not recognized... ";
         break;
     }
-
     logged();
 }

@@ -155,7 +155,7 @@ bool SQLcon::insertToken(const std::string& token, int userID)
     // create insert statement
     std::string insert_sql = "INSERT INTO tokens (token, userID, date) VALUES (?, ?, ?)";
     sqlite3_stmt* stmt;
-    const std::string date = time_stamp();
+    const std::string date = time_stamp().substr(0, 10); // discard HH:MM:SS
 
     rc = sqlite3_prepare_v2(db, insert_sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
@@ -176,6 +176,31 @@ bool SQLcon::insertToken(const std::string& token, int userID)
 
     sqlite3_finalize(stmt);
     return false;
+}
+
+void SQLcon::deleteTokenByUserId(int userId)
+{
+    sqlite3_stmt* stmt;
+    std::string sql = "DELETE FROM tokens WHERE userID = ?";
+    int rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        Logger(dbLogFileName).log(std::string("Error preparing SQL statement: ") + sqlite3_errmsg(db));
+        return;
+    }
+    rc = sqlite3_bind_int(stmt, 1, userId);
+    if (rc != SQLITE_OK) {
+        Logger(dbLogFileName).log(std::string("Error binding parameters: ") + sqlite3_errmsg(db));
+        return;
+    }
+    rc = sqlite3_step(stmt);
+    if (rc == SQLITE_DONE) {
+        Logger(dbLogFileName).log(std::string("Expired tokens erased: "));
+        return;
+    }
+    else {
+        Logger(dbLogFileName).log(std::string("Expired tokens not found: "));
+        return;
+    }
 }
 
 std::vector<Message> SQLcon::getMessages(int userID)
