@@ -31,7 +31,7 @@ void ChatGUI::start()
 
 void ChatGUI::trySignIn()
 {
-    std::cout << "Please, enter your credentials (login,password)\n";
+    std::cout << "Please, enter your credentials (username,password)\n";
     std::cout << "login: ";
     std::string username;
     std::getline(std::cin, username);
@@ -55,15 +55,15 @@ void ChatGUI::trySignIn()
 
 void ChatGUI::trySignUp()
 {
-    std::cout << "Please, enter your credentials (login,password,username)\n";
+    std::cout << "Please, enter your credentials (email,password,username)\n";
     std::string login = "";
     do
     {
-        std::cout << "login: ";
+        std::cout << "email: ";
         std::cin >> login;
         if (login.size() > 4)
             break;
-        std::cout << "\nLogin is too short. Try again!\n";
+        std::cout << "\nEmail is too short. Try again!\n";
     } while (true);
     std::string username = "";
     do

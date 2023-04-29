@@ -11,6 +11,7 @@ constexpr auto maxTries = 5;
 ChatServer::ChatServer()
 	:sql(dbFileName)
 {
+
 }
 
 ::grpc::Status ChatServer::AuthenticateUser(::grpc::ServerContext* context, const::chat::User* request, ::chat::Token* response)

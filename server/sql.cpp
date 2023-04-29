@@ -12,6 +12,8 @@ SQLcon::SQLcon(const std::string& dbFileName)
         std::ofstream(dbFileName).close();
     int rc = sqlite3_open(dbFileName.c_str(), &db);
 
+    initTable();
+
     if (rc != SQLITE_OK) {
         Logger(dbLogFileName).log(std::string("Error opening database: ") + sqlite3_errmsg(db));
         sqlite3_close(db);

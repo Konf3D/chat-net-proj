@@ -9,5 +9,7 @@ add_executable(chat-net-client chat-net-client.cpp client.cpp gui.cpp ../server/
 find_package(gRPC CONFIG REQUIRED)
 target_link_libraries(chat-net-client PRIVATE gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
 
+find_package(OpenSSL REQUIRED)
+target_link_libraries(chat-net-client PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+
 find_package(protobuf REQUIRED)
-#target_link_libraries(chat-net-client )
