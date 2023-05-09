@@ -44,9 +44,21 @@ public:
         std::lock_guard<std::mutex> lock{ mutex_ };
         ofs_ << time_stamp() << " : " << std::forward<T>(info) << std::endl;
     }
+    template<typename T>
+    inline std::string read(int lineNumber) {
+        std::istream file(ofs_);
+        file.seekg(std::ios_base::beg);
+        std::string line;
+
+        int current_line = 1;
+        while (std::getline(file, line) && current_line != line_number) {
+            ++current_line;
+        }
+        return line;
+    }
 
 private:
-    std::ofstream ofs_;
+    std::fstream ofs_;
     std::mutex mutex_;
 };
 
