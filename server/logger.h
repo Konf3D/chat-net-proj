@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <filesystem>
 #include "proto/chat.grpc.pb.h"
+
 // Returns the local time as a std::tm struct.
 inline std::tm get_local_time(std::time_t timer)
 {
