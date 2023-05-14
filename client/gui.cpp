@@ -117,7 +117,7 @@ void ChatGUI::logged()
     }
     case '2':
     {
-        std::ifstream messagesDBFile(dbMessagesFileName,std::ios::beg);
+        std::ifstream messagesDBFile(dbMessagesFileName,std::ios::app);
         std::string readbuff[3];
         while (!messagesDBFile.eof())
         {
