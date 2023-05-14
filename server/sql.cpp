@@ -1,8 +1,9 @@
 
 #include <filesystem>
 #include "sql.h"
-#include "logger/logger.h"
+#include "logger/timestamp.h"
 #include "logger/logentry.h"
+#include "logger/logger.h"
 constexpr auto dbLogFileName = "sql.log";
 
 SQLcon::SQLcon(const std::string& dbFileName)
