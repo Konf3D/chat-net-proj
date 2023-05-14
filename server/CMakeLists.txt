@@ -18,3 +18,5 @@ target_link_libraries(chat-net-server PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ 
 
 find_package(protobuf REQUIRED)
 target_link_libraries(chat-net-server PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
+
+target_link_libraries(chat-net-server PRIVATE logging)

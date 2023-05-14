@@ -59,6 +59,7 @@ public:
     int getUser(const std::string& username);
     int getTokenUser(const std::string& token);
 private:
+    void logError(const std::string& shortDescription);
     int rc = 0;
     sqlite3* db;
     char* err_msg = nullptr;

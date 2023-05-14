@@ -1,7 +1,8 @@
 
 #include <filesystem>
 #include "sql.h"
-#include "logger.h"
+#include "logger/logger.h"
+#include "logger/logentry.h"
 constexpr auto dbLogFileName = "sql.log";
 
 SQLcon::SQLcon(const std::string& dbFileName)
@@ -13,7 +14,7 @@ SQLcon::SQLcon(const std::string& dbFileName)
     initTable();
 
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error opening database: ") + sqlite3_errmsg(db));
+        logError("Cannot open database");
         sqlite3_close(db);
         throw;
     }
@@ -55,21 +56,21 @@ bool SQLcon::initTable()
     rc = sqlite3_exec(db, create_table_users, nullptr, nullptr, &err_msg);
 
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error creating table: ") + sqlite3_errmsg(db));
+        logError("Error creating table");
         sqlite3_free(err_msg);
         return 0;
     }
     rc = sqlite3_exec(db, create_table_messages, nullptr, nullptr, &err_msg);
 
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error creating table: ") + sqlite3_errmsg(db));
+        logError("Error creating table");
         sqlite3_free(err_msg);
         return 0;
     }
     rc = sqlite3_exec(db, create_table_tokens, nullptr, nullptr, &err_msg);
 
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error creating table: ") + sqlite3_errmsg(db));
+        logError("Error creating table");
         sqlite3_free(err_msg);
         return 0;
     }
@@ -83,7 +84,7 @@ bool SQLcon::insertUser(const User& record)
     sqlite3_stmt* stmt;
     rc = sqlite3_prepare_v2(db, "INSERT INTO users (username, name, surname, emailname, emaildomain, password) VALUES (?, ?, ?, ?, ?, ?)", -1, &stmt, NULL);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing SQL statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing SQL statement");
         return 0;
     }
 
@@ -95,7 +96,7 @@ bool SQLcon::insertUser(const User& record)
     rc |= sqlite3_bind_text(stmt, 5, record.emaildomain.c_str(), -1, SQLITE_STATIC); // emaildomain
     rc |= sqlite3_bind_text(stmt, 6, record.password.c_str(), -1, SQLITE_STATIC); // password
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameters: ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         sqlite3_finalize(stmt);
         return 0;
     }
@@ -103,7 +104,7 @@ bool SQLcon::insertUser(const User& record)
     // Execute SQL statement
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("Error inserting users record: ") + sqlite3_errmsg(db));
+        logError("Error inserting users record");
         sqlite3_finalize(stmt);
         return 0;
     }
@@ -120,7 +121,7 @@ bool SQLcon::insertMessage(const Message& record)
     std::string sql = "INSERT INTO messages (messageContent, senderID, recieverID, status) VALUES (?, ?, ?, ?)";
     rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing SQL statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing SQL statement");
         return 0;
     }
 
@@ -130,14 +131,14 @@ bool SQLcon::insertMessage(const Message& record)
     sqlite3_bind_int(stmt, 3, record.reciever);
     sqlite3_bind_int(stmt, 4, StatusMsg::SENT);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameters: ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         return 0;
     }
 
     // Execute the SQL statement
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("Error inserting messages record: ") + sqlite3_errmsg(db));
+        logError("Error inserting messages record");
         sqlite3_finalize(stmt);
         return 0;
     }
@@ -157,7 +158,7 @@ bool SQLcon::insertToken(const std::string& token, int userID)
 
     rc = sqlite3_prepare_v2(db, insert_sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing SQL statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing SQL statement");
         return 0;
     }
 
@@ -167,7 +168,7 @@ bool SQLcon::insertToken(const std::string& token, int userID)
 
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("Error inserting tokens record: ") + sqlite3_errmsg(db));
+        logError("Error inserting tokens record");
         sqlite3_finalize(stmt);
         return 0;
     }
@@ -182,21 +183,21 @@ void SQLcon::deleteTokenByUserId(int userId)
     std::string sql = "DELETE FROM tokens WHERE userID = ?";
     int rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing SQL statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing SQL statement");
         return;
     }
     rc = sqlite3_bind_int(stmt, 1, userId);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameters: ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         return;
     }
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("Expired tokens erased: "));
+        //Logger(dbLogFileName).log(std::string("Expired tokens erased: "));
         return;
     }
     else {
-        Logger(dbLogFileName).log(std::string("Expired tokens not found: "));
+        //Logger(dbLogFileName).log(std::string("Expired tokens not found: "));
         return;
     }
 }
@@ -208,10 +209,10 @@ std::vector<Message> SQLcon::getMessages(int userID)
         + std::to_string(userID) + " OR recieverID = " + std::to_string(userID) + ") AND status = 1 ;";
     int rc = sqlite3_exec(db, query.c_str(), callbackMsg, &msg, &err_msg);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error executing query: ") + sqlite3_errmsg(db));
+        logError("Error executing query");
         sqlite3_free(err_msg);
     }
-    Logger(dbLogFileName).log(std::string("Message query executed succesfully"));
+    //Logger(dbLogFileName).log(std::string("Message query executed succesfully"));
     // The messages vector now contains all the messages in the message table
     return msg;
 }
@@ -222,19 +223,13 @@ std::unique_ptr<User> SQLcon::getUser(int userID)
     sqlite3_stmt* stmt;
     rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing statement");
         return nullptr;
     }
 
     rc = sqlite3_bind_int(stmt, 1, userID);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameter : ") + sqlite3_errmsg(db));
-        sqlite3_finalize(stmt);
-        return nullptr;
-    }
-    rc = sqlite3_bind_int(stmt, 1, userID);
-    if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameter: ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         sqlite3_finalize(stmt);
         return nullptr;
     }
@@ -247,10 +242,10 @@ std::unique_ptr<User> SQLcon::getUser(int userID)
         user->emailname = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
         user->emaildomain = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
         user->password = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6));
-        Logger(dbLogFileName).log(std::string("User found by ID: ") + std::to_string(userID));
+        //Logger(dbLogFileName).log(std::string("User found by ID: ") + std::to_string(userID));
         return user;
     }
-    Logger(dbLogFileName).log(std::string("User not found by ID: ") + std::to_string(userID));
+    //Logger(dbLogFileName).log(std::string("User not found by ID: ") + std::to_string(userID));
     return nullptr;
 
 }
@@ -263,13 +258,15 @@ int SQLcon::getUser(const std::string& emailname, const std::string& emaildomain
     std::string query = "SELECT userID FROM users WHERE emailname = ? AND emaildomain = ?";
     rc = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing statement");
+        return 0;
     }
     rc = sqlite3_bind_text(stmt, 1, emailname.c_str(), -1, SQLITE_TRANSIENT);
     rc = sqlite3_bind_text(stmt, 2, emaildomain.c_str(), -1, SQLITE_TRANSIENT);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameter : ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         sqlite3_finalize(stmt);
+        return 0;
     }
 
     rc = sqlite3_step(stmt);
@@ -278,10 +275,10 @@ int SQLcon::getUser(const std::string& emailname, const std::string& emaildomain
         return sqlite3_column_int(stmt, 0);
     }
     else if (rc == SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("No user found with email = ") + emailname + "@" + emaildomain);
+        //Logger(dbLogFileName).log(std::string("No user found with email = ") + emailname + "@" + emaildomain);
         return 0;
     }
-    Logger(dbLogFileName).log(std::string("Error executing statement: ") + sqlite3_errmsg(db));
+    //Logger(dbLogFileName).log(std::string("Error executing statement: ") + sqlite3_errmsg(db));
     return 0;
 }
 
@@ -293,11 +290,11 @@ int SQLcon::getUser(const std::string& username)
     std::string sql = "SELECT userID FROM users WHERE username = ?";
     rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing statement");
     }
     rc = sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_TRANSIENT);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameter: ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         sqlite3_finalize(stmt);
     }
     rc = sqlite3_step(stmt);
@@ -305,10 +302,10 @@ int SQLcon::getUser(const std::string& username)
         return sqlite3_column_int(stmt, 0);
     }
     else if (rc == SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("No user found with username = ") + username);
+        //Logger(dbLogFileName).log(std::string("No user found with username = ") + username);
         return 0;
     }
-    Logger(dbLogFileName).log(std::string("Error executing statement: ") + sqlite3_errmsg(db));
+    //Logger(dbLogFileName).log(std::string("Error executing statement: ") + sqlite3_errmsg(db));
     return 0;
 }
 
@@ -318,29 +315,39 @@ int SQLcon::getTokenUser(const std::string& token)
     sqlite3_stmt* stmt;
     rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error preparing statement: ") + sqlite3_errmsg(db));
+        logError("Error preparing statement");
         return 0;
     }
 
     rc = sqlite3_bind_text(stmt, 1, token.c_str(), -1, SQLITE_TRANSIENT);
     if (rc != SQLITE_OK) {
-        Logger(dbLogFileName).log(std::string("Error binding parameter: ") + sqlite3_errmsg(db));
+        logError("Error binding parameters");
         sqlite3_finalize(stmt);
         return 0;
     }
     
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
-        Logger(dbLogFileName).log(std::string("UserID token found = ") + std::to_string(sqlite3_column_int(stmt, 0)));
+        //Logger(dbLogFileName).log(std::string("UserID token found = ") + std::to_string(sqlite3_column_int(stmt, 0)));
         return sqlite3_column_int(stmt, 0);
     }
     else if (rc == SQLITE_DONE) {
-        Logger(dbLogFileName).log(std::string("No record found for token") + token);
+        //Logger(dbLogFileName).log(std::string("No record found for token") + token);
         return 0;
     }
-    
-    Logger(dbLogFileName).log(std::string("Error executing statement: ") + sqlite3_errmsg(db));
+
+    logError("Error executing statement");
 
     sqlite3_finalize(stmt);
     return 0;
+}
+
+void SQLcon::logError(const std::string& shortDescription)
+{
+    LogEntry logInfo(shortDescription, SeverityLevel::ERROR);
+    logInfo.setAdditionalMetadata("Service name", "SQLlite");
+    logInfo.setAdditionalMetadata("Service details", sqlite3_errmsg(db));
+    logInfo.setLogger(dbLogFileName);
+    Logger log(dbLogFileName);
+    log.writeLog(std::move(logInfo));
 }
